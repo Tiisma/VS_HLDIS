@@ -32,7 +32,7 @@ The mod is required on both sides (`requiredOnClient` and `requiredOnServer`).
 
 ## Limitations
 
-- In singleplayer, in-game time does not pass while you are away: the message will almost always say "less than a day".
+- The game calendar stops while nobody is online, unless the server's `PassTimeWhenEmpty` setting is on (it is off by default). On a server where you play alone, and in singleplayer, the message will almost always say "less than a day"; time passes during your absence only while other players are online, or if `PassTimeWhenEmpty` is on.
 - First visit to a world: only the season is shown.
 - If the server crashes, the absence is counted from the last world save.
 
@@ -46,10 +46,25 @@ dotnet build HLDIS/HLDIS.csproj -c Release -p:VintageStoryPath="C:/path/to/Vinta
 
 Without `-p:VintageStoryPath`, the `VINTAGE_STORY` environment variable is used. The installable archive is written to `dist/hldis_1.0.0.zip`; copy it into the `Mods` folder of both the client and the server.
 
+## Tests
+
+`HLDIS.Tests` uses [Atlas](https://github.com/Pixnop/Atlas) (`Pixnop.Atlas.XUnit` 0.16.1): `dotnet test` boots a real headless Vintage Story server in the test process, stages the mod, joins test players and captures the packets the server sends them. No client and no manual server setup are needed.
+
+- `WakeUpScenarios`: first join (season only), rejoin after 10 in-game days, rejoin with no time added.
+- `PersistenceScenarios`: the last-seen date survives a real server restart (`RestartWorld`).
+- `FormattingTests`: unit choice and rounding, season thirds (no server boot).
+
+```bash
+VINTAGE_STORY="C:/path/to/Vintagestory-1.22.7" dotnet test HLDIS.Tests/HLDIS.Tests.csproj
+```
+
+`VINTAGE_STORY` must point at the game folder (the one holding `VintagestoryLib.dll`), both to build and to run the tests. Atlas runs the server side only, so the client handler (translation and chat display) is not covered.
+
 ## Verification status
 
 - Build against the 1.22.7 API: successful.
-- In-game tests (client, dedicated server, Optimum, Stratum): **not done**.
+- Atlas tests on Vintage Story 1.22.7: 26/26 passing (server side, packets, restart persistence, formatting logic).
+- Client display, Optimum and Stratum: **not tested**.
 
 ## License
 

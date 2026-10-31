@@ -13,8 +13,8 @@ namespace HLDIS
     /// </summary>
     public class HldisModSystem : ModSystem
     {
-        const string ChannelName = "hldis";
-        const string SaveKey = "hldis-lastseen";
+        public const string ChannelName = "hldis";
+        public const string SaveKey = "hldis-lastseen";
 
         ICoreServerAPI sapi;
         IServerNetworkChannel serverChannel;

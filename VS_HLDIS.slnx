@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HLDIS.Tests/HLDIS.Tests.csproj" />
+  <Project Path="HLDIS/HLDIS.csproj" />
+</Solution>
