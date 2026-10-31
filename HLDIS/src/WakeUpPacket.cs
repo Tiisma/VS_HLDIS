@@ -20,6 +20,10 @@ namespace HLDIS
         /// <summary>IGameCalendar.GetSeasonRel at the player's position (0..1, hemisphere included).</summary>
         [ProtoMember(3)]
         public float SeasonRel;
+
+        /// <summary>IGameCalendar.DaysPerMonth of the world, used to express long absences in months and years.</summary>
+        [ProtoMember(4)]
+        public int DaysPerMonth;
     }
 
     /// <summary>

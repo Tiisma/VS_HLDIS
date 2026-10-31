@@ -9,6 +9,13 @@
   "elapsed-week-half": "a week and a half",
   "elapsed-weeks": "{0} weeks",
   "elapsed-weeks-half": "{0} and a half weeks",
+  "elapsed-month": "1 month",
+  "elapsed-month-half": "a month and a half",
+  "elapsed-months": "{0} months",
+  "elapsed-months-half": "{0} and a half months",
+  "elapsed-year": "1 year",
+  "elapsed-years": "{0} years",
+  "elapsed-and": "{0} and {1}",
 
   "season-early-spring": "early spring",
   "season-mid-spring": "mid-spring",

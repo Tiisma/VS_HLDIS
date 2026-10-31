@@ -71,7 +71,8 @@ namespace HLDIS
             {
                 HasPreviousVisit = hasPrevious,
                 ElapsedDays = hasPrevious ? System.Math.Max(0, now - previous) : 0,
-                SeasonRel = calendar.GetSeasonRel(pos)
+                SeasonRel = calendar.GetSeasonRel(pos),
+                DaysPerMonth = calendar.DaysPerMonth
             }, player);
 
             activePlayers.Add(player.PlayerUID);
@@ -100,7 +101,7 @@ namespace HLDIS
             }
             else
             {
-                message = Lang.Get("hldis:wakeup", ElapsedTime.Format(packet.ElapsedDays), season);
+                message = Lang.Get("hldis:wakeup", ElapsedTime.Format(packet.ElapsedDays, packet.DaysPerMonth), season);
             }
 
             capi.ShowChatMessage(message);
