@@ -49,3 +49,7 @@ Sans `-p:VintageStoryPath`, la variable d'environnement `VINTAGE_STORY` est util
 
 - Compilation contre l'API 1.22.7 : voir l'historique Git / la PR.
 - Tests en jeu (client, serveur dédié, Optimum, Stratum) : **non effectués**.
+
+## Licence
+
+MIT, voir [LICENSE](LICENSE).
