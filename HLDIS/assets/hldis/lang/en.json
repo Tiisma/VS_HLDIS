@@ -1,0 +1,25 @@
+{
+  "wakeup": "You slept for about {0}. It is {1}.",
+  "wakeup-short": "You slept for less than a day. It is {0}.",
+  "wakeup-first": "Welcome. It is {0}.",
+
+  "elapsed-day": "1 day",
+  "elapsed-days": "{0} days",
+  "elapsed-week": "1 week",
+  "elapsed-week-half": "a week and a half",
+  "elapsed-weeks": "{0} weeks",
+  "elapsed-weeks-half": "{0} and a half weeks",
+
+  "season-early-spring": "early spring",
+  "season-mid-spring": "mid-spring",
+  "season-late-spring": "late spring",
+  "season-early-summer": "early summer",
+  "season-mid-summer": "midsummer",
+  "season-late-summer": "late summer",
+  "season-early-fall": "early autumn",
+  "season-mid-fall": "mid-autumn",
+  "season-late-fall": "late autumn",
+  "season-early-winter": "early winter",
+  "season-mid-winter": "midwinter",
+  "season-late-winter": "late winter"
+}

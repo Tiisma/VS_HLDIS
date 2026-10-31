@@ -1,0 +1,14 @@
+{
+  "type": "code",
+  "modid": "hldis",
+  "name": "How Long Did I Sleep?",
+  "authors": [ "Tisma" ],
+  "description": "Tells players, when they join, how much in-game time has passed since their last connection and which part of the season it is.",
+  "version": "1.0.0",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
+  "dependencies": {
+    "game": "1.22.7"
+  }
+}
