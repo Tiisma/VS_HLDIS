@@ -4,7 +4,7 @@ using Vintagestory.API.Config;
 namespace HLDIS
 {
     /// <summary>
-    /// Mise en forme de la durée écoulée : jours sous 7 jours, puis semaines arrondies à la demi-semaine.
+    /// Formats the elapsed time: days under 7 days, then weeks rounded to the nearest half week.
     /// </summary>
     public static class ElapsedTime
     {
@@ -22,7 +22,7 @@ namespace HLDIS
                     : Lang.Get("hldis:elapsed-days", wholeDays);
             }
 
-            // Arrondi à la demi-semaine la plus proche : 7 j -> 1 sem., 10 j -> 1 sem. et demie.
+            // Round to the nearest half week: 7 d -> 1 week, 10 d -> a week and a half.
             int halfWeeks = Math.Max(2, (int)Math.Round(days / (DaysPerWeek / 2), MidpointRounding.AwayFromZero));
             int weeks = halfWeeks / 2;
             bool half = halfWeeks % 2 == 1;

@@ -8,8 +8,8 @@ using Vintagestory.API.Server;
 namespace HLDIS
 {
     /// <summary>
-    /// Serveur : mémorise la date de jeu de la dernière présence de chaque joueur et envoie le temps écoulé à son entrée en jeu.
-    /// Client : traduit et affiche le message dans le chat, dans la langue du joueur.
+    /// Server: stores the in-game date each player was last seen and sends the elapsed time when they enter the game.
+    /// Client: translates the message into the player's language and shows it in chat.
     /// </summary>
     public class HldisModSystem : ModSystem
     {
@@ -19,7 +19,7 @@ namespace HLDIS
         ICoreServerAPI sapi;
         IServerNetworkChannel serverChannel;
         LastSeenData lastSeen = new LastSeenData();
-        // Joueurs ayant reçu leur message pendant la session ; seuls eux voient leur date mise à jour.
+        // Players who received their message this session; only their dates get updated.
         readonly HashSet<string> activePlayers = new HashSet<string>();
 
         ICoreClientAPI capi;
@@ -80,7 +80,7 @@ namespace HLDIS
 
         void OnPlayerDisconnect(IServerPlayer player)
         {
-            // Un joueur déconnecté avant d'être entré en jeu garde sa date précédente.
+            // A player who disconnects before entering the game keeps their previous date.
             if (!activePlayers.Remove(player.PlayerUID)) return;
             lastSeen.TotalDaysByPlayer[player.PlayerUID] = sapi.World.Calendar.TotalDays;
         }

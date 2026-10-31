@@ -11,12 +11,12 @@ namespace HLDIS
     }
 
     /// <summary>
-    /// Découpe chaque saison en début / milieu / fin à partir de GetSeasonRel.
+    /// Splits each season into early / mid / late from GetSeasonRel.
     /// </summary>
     public static class SeasonPhase
     {
-        // Seuils relevés dans l'IL de Vintagestory.Common.GameCalendar.GetSeason (VintagestoryLib 1.22.7) :
-        // < 0.2164 hiver, < 0.4685 printemps, < 0.726 été, < 0.9726 automne, sinon hiver.
+        // Thresholds read from the IL of Vintagestory.Common.GameCalendar.GetSeason (VintagestoryLib 1.22.7):
+        // < 0.2164 winter, < 0.4685 spring, < 0.726 summer, < 0.9726 fall, otherwise winter.
         const float SpringStart = 0.2164f;
         const float SummerStart = 0.4685f;
         const float FallStart = 0.726f;
@@ -37,7 +37,7 @@ namespace HLDIS
             part = (EnumSeasonPart)Math.Clamp((int)(progress * 3), 0, 2);
         }
 
-        /// <summary>Clé de langue, par exemple "hldis:season-mid-winter".</summary>
+        /// <summary>Lang key, for example "hldis:season-mid-winter".</summary>
         public static string LangKey(float seasonRel)
         {
             Resolve(seasonRel, out EnumSeason season, out EnumSeasonPart part);

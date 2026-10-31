@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- VintagestoryAPI.dll 1.22.7 cible .NETCoreApp v10.0. -->
+    <!-- VintagestoryAPI.dll 1.22.7 targets .NETCoreApp v10.0. -->
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>HLDIS</AssemblyName>
     <RootNamespace>HLDIS</RootNamespace>
@@ -13,7 +13,7 @@
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <DebugType>portable</DebugType>
 
-    <!-- Dossier d'installation du jeu : -p:VintageStoryPath=... ou variable d'environnement VINTAGE_STORY. -->
+    <!-- Game install folder: -p:VintageStoryPath=... or the VINTAGE_STORY environment variable. -->
     <VintageStoryPath Condition="'$(VintageStoryPath)' == ''">$(VINTAGE_STORY)</VintageStoryPath>
     <ModOutputDir>$(MSBuildThisFileDirectory)..\dist\</ModOutputDir>
   </PropertyGroup>
@@ -36,10 +36,10 @@
 
   <Target Name="CheckVintageStoryPath" BeforeTargets="ResolveAssemblyReferences">
     <Error Condition="!Exists('$(VintageStoryPath)\VintagestoryAPI.dll')"
-           Text="VintagestoryAPI.dll introuvable dans '$(VintageStoryPath)'. Passer -p:VintageStoryPath=&lt;dossier du jeu 1.22.7&gt; ou définir VINTAGE_STORY." />
+           Text="VintagestoryAPI.dll not found in '$(VintageStoryPath)'. Pass -p:VintageStoryPath=&lt;Vintage Story 1.22.7 folder&gt; or set VINTAGE_STORY." />
   </Target>
 
-  <!-- Archive installable : modinfo.json, HLDIS.dll, HLDIS.pdb et assets/. -->
+  <!-- Installable archive: modinfo.json, HLDIS.dll, HLDIS.pdb and assets/. -->
   <Target Name="PackageMod" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
     <PropertyGroup>
       <ModStagingDir>$(IntermediateOutputPath)modpackage\</ModStagingDir>
@@ -53,7 +53,7 @@
     <Copy SourceFiles="@(ModPackageAsset)" DestinationFolder="$(ModStagingDir)assets\%(RecursiveDir)" />
     <MakeDir Directories="$(ModOutputDir)" />
     <ZipDirectory SourceDirectory="$(ModStagingDir)" DestinationFile="$(ModOutputDir)hldis_$(Version).zip" Overwrite="true" />
-    <Message Importance="high" Text="Archive du mod : $(ModOutputDir)hldis_$(Version).zip" />
+    <Message Importance="high" Text="Mod archive: $(ModOutputDir)hldis_$(Version).zip" />
   </Target>
 
 </Project>

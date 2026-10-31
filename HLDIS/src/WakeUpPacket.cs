@@ -4,26 +4,26 @@ using ProtoBuf;
 namespace HLDIS
 {
     /// <summary>
-    /// Envoyé par le serveur au client quand le joueur entre en jeu.
+    /// Sent by the server to the client when the player enters the game.
     /// </summary>
     [ProtoContract]
     public class WakeUpPacket
     {
-        /// <summary>Faux lors de la première connexion du joueur à ce monde.</summary>
+        /// <summary>False on the player's first visit to this world.</summary>
         [ProtoMember(1)]
         public bool HasPreviousVisit;
 
-        /// <summary>Jours de jeu écoulés depuis la dernière déconnexion.</summary>
+        /// <summary>In-game days elapsed since the last disconnect.</summary>
         [ProtoMember(2)]
         public double ElapsedDays;
 
-        /// <summary>Valeur de IGameCalendar.GetSeasonRel à la position du joueur (0..1, hémisphère inclus).</summary>
+        /// <summary>IGameCalendar.GetSeasonRel at the player's position (0..1, hemisphere included).</summary>
         [ProtoMember(3)]
         public float SeasonRel;
     }
 
     /// <summary>
-    /// Données persistées dans la sauvegarde du monde.
+    /// Data persisted in the world save.
     /// </summary>
     [ProtoContract]
     public class LastSeenData
@@ -31,7 +31,7 @@ namespace HLDIS
         [ProtoMember(1)]
         public int Version = 1;
 
-        /// <summary>IGameCalendar.TotalDays à la dernière présence connue, par PlayerUID.</summary>
+        /// <summary>IGameCalendar.TotalDays when the player was last seen, keyed by PlayerUID.</summary>
         [ProtoMember(2)]
         public Dictionary<string, double> TotalDaysByPlayer = new Dictionary<string, double>();
     }

@@ -1,55 +1,55 @@
 # How Long Did I Sleep? (HLDIS)
 
-Mod Vintage Story client + serveur. Quand un joueur entre en jeu, il reçoit dans le chat :
+Client + server Vintage Story mod. When a player joins, they receive a chat message with:
 
-- le temps de jeu écoulé depuis sa dernière présence :
-  - moins de 1 jour : « moins d'une journée » ;
-  - moins de 7 jours : nombre de jours entiers (« 3 jours ») ;
-  - 7 jours ou plus : semaines arrondies à la demi-semaine (« 1 semaine et demie », « 3 semaines ») ;
-- la période de la saison à sa position : début, mi ou fin de printemps / été / automne / hiver, sans mois précis.
+- the in-game time elapsed since their last visit:
+  - under 1 day: "less than a day";
+  - under 7 days: number of whole days ("3 days");
+  - 7 days or more: weeks rounded to the nearest half week ("a week and a half", "3 weeks");
+- the part of the season at their position: early, mid or late spring / summer / autumn / winter, without the exact month.
 
-Le message est traduit côté client (`assets/hldis/lang/fr.json`, `en.json`) selon la langue du joueur.
+The message is translated client-side (`assets/hldis/lang/en.json`, `fr.json`) according to the player's language.
 
 ## Versions
 
-| Élément | Version |
+| Component | Version |
 |---|---|
-| Vintage Story (API de compilation) | 1.22.7 |
-| Optimum / Stratum ciblés | 0.3.19 / v1.22.7-stratum.2 (non testés) |
-| Framework | net10.0 (identique à `VintagestoryAPI.dll` 1.22.7) |
-| SDK | .NET 10 (`global.json` : 10.0.100, `latestFeature`) |
+| Vintage Story (compile-time API) | 1.22.7 |
+| Targeted Optimum / Stratum | 0.3.19 / v1.22.7-stratum.2 (untested) |
+| Framework | net10.0 (same as `VintagestoryAPI.dll` 1.22.7) |
+| SDK | .NET 10 (`global.json`: 10.0.100, `latestFeature`) |
 
-## Fonctionnement
+## How it works
 
-- **Serveur** : à l'entrée en jeu (`PlayerNowPlaying`), compare `Calendar.TotalDays` à la date mémorisée pour le joueur, puis envoie un paquet réseau (canal `hldis`). La date est mise à jour à la déconnexion et à chaque sauvegarde du monde (`GameWorldSave`) pour les joueurs connectés. Elle est stockée dans la sauvegarde du monde (clé `hldis-lastseen`).
-- **Client** : choisit les textes traduits et les affiche dans le chat.
-- **Saison** : calculée à partir de `GetSeasonRel` à la position du joueur (hémisphère et `SeasonOverride` inclus). Les limites des saisons reprennent celles de `GameCalendar.GetSeason` du jeu 1.22.7 ; chaque saison est découpée en trois tiers.
-- Une semaine compte 7 jours de jeu, quel que soit le réglage « jours par mois » du monde.
+- **Server**: when the player enters the game (`PlayerNowPlaying`), compares `Calendar.TotalDays` with the date stored for that player, then sends a network packet (channel `hldis`). The date is updated on disconnect and on every world save (`GameWorldSave`) for connected players. It is stored in the world save (key `hldis-lastseen`).
+- **Client**: picks the translated texts and shows them in chat.
+- **Season**: computed from `GetSeasonRel` at the player's position (hemisphere and `SeasonOverride` included). Season boundaries match those of `GameCalendar.GetSeason` in game version 1.22.7; each season is split into thirds.
+- A week is 7 in-game days, regardless of the world's "days per month" setting.
 
-Le mod est requis des deux côtés (`requiredOnClient` et `requiredOnServer`).
+The mod is required on both sides (`requiredOnClient` and `requiredOnServer`).
 
-## Limites
+## Limitations
 
-- En solo, le temps de jeu ne s'écoule pas pendant l'absence : le message indiquera presque toujours « moins d'une journée ».
-- Première connexion à un monde : seule la saison est affichée.
-- Si le serveur plante, l'absence est calculée depuis la dernière sauvegarde du monde.
-- Pas de passage aux mois ou aux années pour les longues absences : la durée reste exprimée en semaines.
+- In singleplayer, in-game time does not pass while you are away: the message will almost always say "less than a day".
+- First visit to a world: only the season is shown.
+- If the server crashes, the absence is counted from the last world save.
+- Long absences are not converted to months or years: the duration stays in weeks.
 
-## Compilation
+## Building
 
-Prérequis : SDK .NET 10 et une installation de Vintage Story 1.22.7 (les DLL du jeu ne sont pas incluses dans ce dépôt).
+Requirements: .NET 10 SDK and a Vintage Story 1.22.7 installation (game DLLs are not included in this repository).
 
 ```bash
-dotnet build HLDIS/HLDIS.csproj -c Release -p:VintageStoryPath="C:/chemin/vers/Vintagestory-1.22.7"
+dotnet build HLDIS/HLDIS.csproj -c Release -p:VintageStoryPath="C:/path/to/Vintagestory-1.22.7"
 ```
 
-Sans `-p:VintageStoryPath`, la variable d'environnement `VINTAGE_STORY` est utilisée. L'archive installable est produite dans `dist/hldis_1.0.0.zip` ; la copier dans le dossier `Mods` du client et du serveur.
+Without `-p:VintageStoryPath`, the `VINTAGE_STORY` environment variable is used. The installable archive is written to `dist/hldis_1.0.0.zip`; copy it into the `Mods` folder of both the client and the server.
 
-## État des vérifications
+## Verification status
 
-- Compilation contre l'API 1.22.7 : voir l'historique Git / la PR.
-- Tests en jeu (client, serveur dédié, Optimum, Stratum) : **non effectués**.
+- Build against the 1.22.7 API: successful.
+- In-game tests (client, dedicated server, Optimum, Stratum): **not done**.
 
-## Licence
+## License
 
-MIT, voir [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
