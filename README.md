@@ -40,11 +40,23 @@ The mod is required on both sides (`requiredOnClient` and `requiredOnServer`).
 
 Requirements: .NET 10 SDK and a Vintage Story 1.22.7 installation (game DLLs are not included in this repository).
 
+The build scripts compile the mod in Release and write a ready-to-install ZIP to `dist/hldis_1.0.0.zip`, containing `HLDIS.dll`, `HLDIS.pdb`, `modinfo.json`, `modicon.png` and `assets/`. Copy it into the `Mods` folder of both the client and the server.
+
+Linux / macOS / Git Bash:
+
 ```bash
-dotnet build HLDIS/HLDIS.csproj -c Release -p:VintageStoryPath="C:/path/to/Vintagestory-1.22.7"
+./build.sh /path/to/vintagestory
 ```
 
-Without `-p:VintageStoryPath`, the `VINTAGE_STORY` environment variable is used. The installable archive is written to `dist/hldis_1.0.0.zip`; copy it into the `Mods` folder of both the client and the server.
+Windows PowerShell or PowerShell 7 (any OS):
+
+```powershell
+./build.ps1 -GamePath "C:\path\to\Vintagestory"
+```
+
+Without a path, both scripts use the `VINTAGE_STORY` environment variable. Add `--test` (`build.sh`) or `-Test` (`build.ps1`) to run the Atlas test suite first. On Windows, if PowerShell blocks the script, run it with `powershell -ExecutionPolicy Bypass -File build.ps1`.
+
+The ZIP content is defined by the `PackageMod` target in `HLDIS/HLDIS.csproj`, so a plain `dotnet build HLDIS/HLDIS.csproj -c Release -p:VintageStoryPath=...` produces the same archive.
 
 ## Tests
 

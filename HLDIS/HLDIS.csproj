@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <Content Include="modinfo.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="modicon.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="assets\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
@@ -39,13 +40,13 @@
            Text="VintagestoryAPI.dll not found in '$(VintageStoryPath)'. Pass -p:VintageStoryPath=&lt;Vintage Story 1.22.7 folder&gt; or set VINTAGE_STORY." />
   </Target>
 
-  <!-- Installable archive: modinfo.json, HLDIS.dll, HLDIS.pdb and assets/. -->
+  <!-- Installable archive: modinfo.json, modicon.png, HLDIS.dll, HLDIS.pdb and assets/. A missing file fails the Copy step. -->
   <Target Name="PackageMod" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
     <PropertyGroup>
       <ModStagingDir>$(IntermediateOutputPath)modpackage\</ModStagingDir>
     </PropertyGroup>
     <ItemGroup>
-      <ModPackageFile Include="$(OutDir)HLDIS.dll;$(OutDir)HLDIS.pdb;$(OutDir)modinfo.json" />
+      <ModPackageFile Include="$(OutDir)HLDIS.dll;$(OutDir)HLDIS.pdb;$(OutDir)modinfo.json;$(OutDir)modicon.png" />
       <ModPackageAsset Include="$(OutDir)assets\**\*" />
     </ItemGroup>
     <RemoveDir Directories="$(ModStagingDir)" />
